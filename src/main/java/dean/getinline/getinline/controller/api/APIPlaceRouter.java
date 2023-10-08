@@ -7,19 +7,20 @@ import org.springframework.web.servlet.function.ServerResponse;
 
 import java.util.List;
 
+import static org.springframework.web.servlet.function.RequestPredicates.path;
 import static org.springframework.web.servlet.function.RouterFunctions.route;
 
 @Configuration
 public class APIPlaceRouter {
 
     @Bean
-    public RouterFunction<ServerResponse> placeRouter() {
-        return route()
-                .GET("/api/places", req -> ServerResponse.ok().body(List.of("place1", "place2")))
-                .POST("/api/places", req -> ServerResponse.ok().body(true))
-                .GET("/api/places/{placeId}", req -> ServerResponse.ok().body("place " + req.pathVariable("placeId")))
-                .PUT("/api/places/{placeId}", req -> ServerResponse.ok().body(true))
-                .DELETE("/api/places/{placeId}", req -> ServerResponse.ok().body(true))
-                .build();
+    public RouterFunction<ServerResponse> placeRouter(APIPlaceHandler apiPlaceHandler) {
+        return route().nest(path("/api/places"), builder -> builder
+                .GET("", apiPlaceHandler::getPlaces)
+                .POST("", apiPlaceHandler::createPlaces)
+                .GET("/{placeId}", apiPlaceHandler::getPlace)
+                .PUT("/{placeId}", apiPlaceHandler::modifyPlaces)
+                .DELETE("/{placeId}", apiPlaceHandler::removePlaces)
+        ).build();
     }
 }
