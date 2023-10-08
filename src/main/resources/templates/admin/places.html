@@ -3,23 +3,23 @@
   User: Dean
   Date: 2023-10-08
   Time: 오후 6:33
-  Dir: src/main/resources/templates/error.html
+  Dir: src/main/resources/templates/error2.html
   To change this template use File | Settings | File Templates. -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragment/template}">
+      xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
+    <meta charset="UTF-8">
     <!-- index.html 고유 CSS 추가 -->
-    <th:block layout:fragment="css">
-        <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
-    </th:block>
-    <!-- index.html 고유 스크립트 추가 -->
-    <th:block layout:fragment="script">
-        <!--    <script th:src="@{/js/page/home.js}"></script>-->
-    </th:block>
+    <title>Title</title>
 </head>
-<div layout:fragment="content">
-장소입니당!!
-</div>
+<body>
+    <p>
+        장소 페이지 입니당.
+    </p>
+<ul>
+    <li>placeType: <span th:text="${placeType} ?: _">?</span></li>
+    <li>placeName: <span th:text="${placeName} ?: _">?</span></li>
+    <li>address: <span th:text="${address} ?: _">?</span></li>
+</ul>
+</body>
 </html>
