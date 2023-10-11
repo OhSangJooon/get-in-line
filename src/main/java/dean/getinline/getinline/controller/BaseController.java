@@ -31,8 +31,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class BaseController {
 
     @GetMapping("/")
-    public String root() throws Exception{
-        throw new Exception("테스트");
+    public String root() throws Exception {
+        throw new Exception("Test!!");
 //        return "index";
         /*
         index라는 파일명의 위치를 찾지 못한다 (루트 경로를 못찾는다.)
@@ -48,9 +48,4 @@ public class BaseController {
         타임리프를 사용하면 리소스 -> templates가 루트가 된다.
         */
     }
-
-//    @RequestMapping("/error")
-//    public String error() {
-//        return "error";
-//    }
 }
