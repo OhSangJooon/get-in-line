@@ -1,10 +1,8 @@
 package dean.getinline.getinline.controller;
 
-import org.springframework.boot.web.servlet.error.ErrorController;
+import dean.getinline.getinline.exception.GeneralException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 /*
 * 에러페이지를 넘겨줄때 화이트 라벨 에러페이지가 아닌
@@ -32,8 +30,8 @@ public class BaseController {
 
     @GetMapping("/")
     public String root() throws Exception {
-        throw new Exception("Test!!");
-//        return "index";
+//        throw new GeneralException("Test!!");
+        return "index";
         /*
         index라는 파일명의 위치를 찾지 못한다 (루트 경로를 못찾는다.)
         그때는 main 경로 안의 webapp 이라는 경로를 추가해 그 위치에 추가하면 된다.
