@@ -11,9 +11,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * 공통에러 페이지
+ * ErrorController 인터페이스를 구현해서 작성했다.
+ * */
 @Controller
 public class BaseErrorController implements ErrorController {
 

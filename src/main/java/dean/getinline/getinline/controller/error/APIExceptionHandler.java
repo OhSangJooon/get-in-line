@@ -3,14 +3,15 @@ package dean.getinline.getinline.controller.error;
 import dean.getinline.getinline.constant.ErrorCode;
 import dean.getinline.getinline.dto.APIErrorResponse;
 import dean.getinline.getinline.exception.GeneralException;
-import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.Map;
 
@@ -18,26 +19,32 @@ import java.util.Map;
  * API Exception 핸들러
  * API에 대한 ControllerAdvice 전체 컨트롤러의 동작을 감시한다.
  * 모든 응답들은 ResponseBody가 추가로 붙는다.
+ *
+ * 특정한 어노테이션 (RestController) 가 달린 클래스 (API)만 제어하는 에러 핸들러
+ *
+ * 추가로 스프링 MVC의 예외도 처리하기 위해
+ * ResponseEntityExceptionHandler 를 구현해서 처리했다.
 * */
 @RestControllerAdvice(annotations = RestController.class)
-public class APIExceptionHandler {
+public class APIExceptionHandler extends ResponseEntityExceptionHandler {
 
     /**
      * GeneralException이 터졌을 경우
      * */
     @ExceptionHandler
-    public ResponseEntity<APIErrorResponse> general(GeneralException e) {
+    public ResponseEntity<Object> general(GeneralException e, WebRequest request) {
         ErrorCode errorCode = e.getErrorCode();
         HttpStatus status = errorCode.isClientSideError() ?
                 HttpStatus.BAD_REQUEST :
                 HttpStatus.INTERNAL_SERVER_ERROR;
 
-
-        return ResponseEntity
-                .status(status)
-                .body(APIErrorResponse.of(
-                        false, errorCode, errorCode.getMessage(e)
-                ));
+        return super.handleExceptionInternal(
+                e,
+                APIErrorResponse.of(false, errorCode.getCode(), errorCode.getMessage(e)),
+                HttpHeaders.EMPTY,
+                status,
+                request
+        );
     }
 
 
@@ -49,14 +56,37 @@ public class APIExceptionHandler {
      * 아래 메서드가 RuntimeException을 잡아주기 떄문에 스택트레이스 로그가 잡히지 않는다.
      * */
     @ExceptionHandler
-    public ResponseEntity<APIErrorResponse> exception(Exception e) {
+    public ResponseEntity<Object> exception(Exception e, WebRequest request) {
         ErrorCode errorCode = ErrorCode.INTERNAL_ERROR;
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
 
-        return ResponseEntity
-                .status(status)
-                .body(APIErrorResponse.of(
-                        false, errorCode, errorCode.getMessage(e)
-                ));
+        return super.handleExceptionInternal(
+                e,
+                APIErrorResponse.of(false, errorCode.getCode(), errorCode.getMessage(e)),
+                HttpHeaders.EMPTY,
+                status,
+                request
+        );
+    }
+
+    /**
+     * ResponseEntityExceptionHandler의 경우 스프링 MVC의 에러를 예외처리하는데
+     * 이때는 body가 null로 리턴되기 떄문에 같은 동작을 하되 body가 리턴하도록 재정의 한다.
+     * handleExceptionInternal를 재정의 후 super를 호출하면 body가 출력된다.
+     * -> 결국 super의 Internal을 호출한다.
+    * */
+    @Override
+    protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatusCode statusCode, WebRequest request) {
+        ErrorCode errorCode = statusCode.is4xxClientError() ?
+                ErrorCode.SPRING_BAD_REQUEST :
+                ErrorCode.SPRING_INTERNAL_ERROR;
+
+        return super.handleExceptionInternal(
+                ex,
+                APIErrorResponse.of(false, errorCode.getCode(), errorCode.getMessage(ex)),
+                headers,
+                statusCode,
+                request
+        );
     }
 }

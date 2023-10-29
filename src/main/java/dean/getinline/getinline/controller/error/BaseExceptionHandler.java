@@ -16,6 +16,8 @@ import java.util.Map;
 /**
  * View에 대한 ControllerAdvice 전체 컨트롤러의 동작을 감시한다.
  * 파라미터로 basePackages를 지정하지 않음.
+ *
+ * 스코프를 넓혀 @Controller를 적용한다.
 * */
 @ControllerAdvice
 public class BaseExceptionHandler {
