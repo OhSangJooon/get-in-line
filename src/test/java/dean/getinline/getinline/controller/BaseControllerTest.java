@@ -1,60 +1,48 @@
 package dean.getinline.getinline.controller;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.event.annotation.BeforeTestMethod;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.filter.CharacterEncodingFilter;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-@AutoConfigureMockMvc
-@SpringBootTest
+/**
+ * íŒŒë¼ë¯¸í„°ë¡œ í…ŒìŠ¤íŠ¸í•˜ê³ ì í•˜ëŠ” ì»¨íŠ¸ë¡¤ëŸ¬ í´ë˜ìŠ¤ë¥¼ ì‘ì„±í•œë‹¤.
+ * */
+@WebMvcTest(BaseControllerTest.class)
 class BaseControllerTest {
 
-    @Autowired
-    private MockMvc mvc;
+    private final MockMvc mvc;
 
-    @Autowired
-    private WebApplicationContext ctx;
-
-    /*@BeforeTestMethod
-    public void setUp() {
-        this.mvc = webAppContextSetup(ctx)
-                .addFilters(new CharacterEncodingFilter("UTF-8", true))
-                .alwaysDo(print())
-                .build();
-    }*/
+    public BaseControllerTest(@Autowired MockMvc mvc) {
+        this.mvc = mvc;
+    }
 
     /**
-     * Å×½ºÆ® ¸ñÇ¥ : localhost:8080/ ¸¦ È£Ãâ (Get) ÇÏ¸é index ÆäÀÌÁö°¡ È£ÃâµÇ¾î¾ß ÇÑ´Ù.
-     * MockMvc »ç¿ë (@AutoConfigureMockMvc) ¾î³ëÅ×ÀÌ¼ÇÀ» »ç¿ëÇÔ¸é
-     * MockMvc¸¦ Autowired ¹Ù·Î ÁÖÀÔ ¹ŞÀ» ¼ö ÀÖ´Ù.
+     * í…ŒìŠ¤íŠ¸ ëª©í‘œ : localhost:8080/ ë¥¼ í˜¸ì¶œ (Get) í•˜ë©´ index í˜ì´ì§€ê°€ í˜¸ì¶œë˜ì–´ì•¼ í•œë‹¤.
+     * MockMvc ì‚¬ìš© (@AutoConfigureMockMvc) ì–´ë…¸í…Œì´ì…˜ì„ ì‚¬ìš©í•¨ë©´
+     * MockMvcë¥¼ Autowired ë°”ë¡œ ì£¼ì… ë°›ì„ ìˆ˜ ìˆë‹¤.
      * */
-    @DisplayName("[view] [GET] ±âº» ÆäÀÌÁö ¿äÃ»")
+    @DisplayName("[view] [GET] ê¸°ë³¸ í˜ì´ì§€ ìš”ì²­")
     @Test
-    void testRoot() throws Exception{
+    void givenNothing_whenRequestingRootPage_thenReturnsIndexPage() throws Exception{
         // Given
 
         // When & Then
-        mvc.perform(get("/"))   // andExpect·Î ´Ù¾çÇÑ °Ë¼öÇÒ °úÁ¤ Á¤ÀÇ
-                .andExpect(status().isOk())    // http status¸¦ °Ë¼öÇÑ´Ù.
-//                .andExpect(content().contentType(MediaType.TEXT_HTML_VALUE + ";charset=UTF-8"))   // viewÀÌ±â ¶§¹®¿¡ contentType´Â Text/html
-//                .andExpect(content().contentType(MediaType.valueOf("text/html;charset=UTF-8")))   // viewÀÌ±â ¶§¹®¿¡ contentType´Â Text/html
-                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))   // viewÀÌ±â ¶§¹®¿¡ contentType´Â Text/html
-                .andExpect(content().string(containsString("Default Page!!!")))   // ½ÇÁ¦ µé¾î°¡ÀÖ´Â ³»¿ë °Ë¼ö
-                .andExpect(view().name("index"))   // ¸ÅÇÎ Å×½ºÆ® ÁøÇà
-                .andDo(print());    // Å×½ºÆ® °á°ú¸¦ Ãâ·Â
+        mvc.perform(get("/"))   // andExpectë¡œ ë‹¤ì–‘í•œ ê²€ìˆ˜í•  ê³¼ì • ì •ì˜
+                .andExpect(status().isOk())    // http statusë¥¼ ê²€ìˆ˜í•œë‹¤.
+//                .andExpect(content().contentType(MediaType.TEXT_HTML_VALUE + ";charset=UTF-8"))   // viewì´ê¸° ë•Œë¬¸ì— contentTypeëŠ” Text/html
+//                .andExpect(content().contentType(MediaType.valueOf("text/html;charset=UTF-8")))   // viewì´ê¸° ë•Œë¬¸ì— contentTypeëŠ” Text/html
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))   // viewì´ê¸° ë•Œë¬¸ì— contentTypeëŠ” Text/html
+                .andExpect(content().string(containsString("Default Page!!!")))   // ì‹¤ì œ ë“¤ì–´ê°€ìˆëŠ” ë‚´ìš© ê²€ìˆ˜
+                .andExpect(view().name("index"))   // ë§¤í•‘ í…ŒìŠ¤íŠ¸ ì§„í–‰
+                .andDo(print());    // í…ŒìŠ¤íŠ¸ ê²°ê³¼ë¥¼ ì¶œë ¥
 
 
     }
