@@ -39,9 +39,10 @@ public class BaseController {
 
         프로젝트 구조 -> 모듈 -> 웹 리소스 디렉토리 -> 루트경로 지정
         application.properties에 설정 추가 (spring.mvc.view.suffix=html)
+        위 과정은 JSP 프로젝트의 방법
 
         위 과정을 생략하고 간단한 방법은
-        템플릿 엔진을 추가하고 AutoConfiguration을 사용한다
+        템플릿 엔진(타임리프)을 추가하고 AutoConfiguration을 사용한다
 
         타임리프를 사용하면 리소스 -> templates가 루트가 된다.
         */

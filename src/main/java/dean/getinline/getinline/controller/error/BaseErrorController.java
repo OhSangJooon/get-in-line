@@ -17,6 +17,7 @@ import java.util.Map;
 /**
  * 공통에러 페이지
  * ErrorController 인터페이스를 구현해서 작성했다.
+ * 에러페이지를 커스텀 해서 사용하기 위해서는 ErrorController 인터페이스를 구현해야 한다.
  * */
 @Controller
 public class BaseErrorController implements ErrorController {
