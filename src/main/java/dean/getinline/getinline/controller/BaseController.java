@@ -1,6 +1,5 @@
 package dean.getinline.getinline.controller;
 
-import dean.getinline.getinline.exception.GeneralException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
