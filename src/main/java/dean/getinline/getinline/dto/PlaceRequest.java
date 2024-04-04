@@ -2,28 +2,22 @@ package dean.getinline.getinline.dto;
 
 import dean.getinline.getinline.constant.PlaceType;
 
-import java.time.LocalDateTime;
-
-public record PlaceDTO(
+public record PlaceRequest(
         PlaceType placeType,
         String placeName,
         String address,
         String phoneNumber,
         Integer capacity,
-        String memo,
-        LocalDateTime createdAt,
-        LocalDateTime modifiedAt
+        String memo
 ) {
-    public static PlaceDTO of(
+    public static PlaceRequest of(
             PlaceType placeType,
             String placeName,
             String address,
             String phoneNumber,
             Integer capacity,
-            String memo,
-            LocalDateTime createdAt,
-            LocalDateTime modifiedAt
+            String memo
     ) {
-        return new PlaceDTO(placeType, placeName, address, phoneNumber, capacity, memo, createdAt, modifiedAt);
+        return new PlaceRequest(placeType, placeName, address, phoneNumber, capacity, memo);
     }
 }
