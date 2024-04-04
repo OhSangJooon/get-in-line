@@ -15,6 +15,7 @@ import java.util.Optional;
 @Service
 public class EventService {
 
+    // 인터페이스의 경우 스프링이 Bean 으로 생성할 수 없기 떄문에 config를 만들어 주어야한다.
     private final EventRepository eventRepository;
 
     /**

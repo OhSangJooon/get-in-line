@@ -24,13 +24,12 @@ class EventServiceTest {
     @InjectMocks
     private EventService sut; // System Under Test
 
+    @Mock private EventRepository eventRepository;
+
     @BeforeEach
     void setUp() {
-        sut = new EventService(null);
+        sut = new EventService(eventRepository);
     }
-
-    @Mock
-    private EventRepository eventRepository;
 
     @DisplayName("검색조건 없이 이벤트 검색하면, 전체 결과를 출력하여 보여준다.")
     @Test
