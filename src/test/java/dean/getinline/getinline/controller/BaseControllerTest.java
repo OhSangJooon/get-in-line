@@ -15,7 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * 파라미터로 테스트하고자 하는 컨트롤러 클래스를 작성한다.
  * */
-@WebMvcTest(BaseControllerTest.class)
+@WebMvcTest(BaseController.class)
 class BaseControllerTest {
 
     private final MockMvc mvc;
@@ -40,7 +40,7 @@ class BaseControllerTest {
 //                .andExpect(content().contentType(MediaType.TEXT_HTML_VALUE + ";charset=UTF-8"))   // view이기 때문에 contentType는 Text/html
 //                .andExpect(content().contentType(MediaType.valueOf("text/html;charset=UTF-8")))   // view이기 때문에 contentType는 Text/html
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))   // view이기 때문에 contentType는 Text/html
-                .andExpect(content().string(containsString("Default Page!!!")))   // 실제 들어가있는 내용 검수
+                .andExpect(content().string(containsString("This is default page.")))   // 실제 들어가있는 내용 검수
                 .andExpect(view().name("index"))   // 매핑 테스트 진행
                 .andDo(print());    // 테스트 결과를 출력
 

@@ -1,33 +1,16 @@
-<!-- 
-  Created by IntelliJ IDEA.
-  User: Dean
-  Date: 2023-10-08
-  Time: 오후 6:33
-  Dir: src/main/resources/templates/error.html
-  To change this template use File | Settings | File Templates. -->
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{fragment/template}">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- index.html 고유 CSS 추가 -->
-    <th:block layout:fragment="css">
-        <!--    <link rel="stylesheet" th:href="@{/css/page/home.css}" >-->
-    </th:block>
-    <!-- index.html 고유 스크립트 추가 -->
-    <th:block layout:fragment="script">
-        <!--    <script th:src="@{/js/page/home.js}"></script>-->
-    </th:block>
+  <meta charset="UTF-8">
+  <title>Title</title>
 </head>
-<div layout:fragment="content">
-    <p>This is <span th:text="${statusCode} ?: _">???</span> error Page!!</p>
-    <ul>
-        <li>
-            errorCode : <span th:text="${errorCode} ?: _">?</span>
-        </li>
-        <li>
-            message : <span th:text="${message} ?: _">?</span>
-        </li>
-    </ul>
-</div>
+<body>
+<p>
+  This is <span th:text="${statusCode} ?: _">???</span> error page.
+</p>
+<ul>
+  <li>errorCode: <span th:text="${errorCode} ?: _">?</span></li>
+  <li>message: <span th:text="${message} ?: _">?</span></li>
+</ul>
+</body>
 </html>
