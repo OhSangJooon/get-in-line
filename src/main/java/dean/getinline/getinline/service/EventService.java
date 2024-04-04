@@ -29,25 +29,8 @@ public class EventService {
     public List<EventDTO> getEvents(Long placeId, String eventName, EventStatus eventStatus,
                                     LocalDateTime eventStartDateTime, LocalDateTime eventEndDateTime) {
         try {
-            return List.of(EventDTO.of(
-                    placeId,
-                    eventName,
-                    eventStatus,
-                    eventStartDateTime,
-                    eventEndDateTime,
-                    0,
-                    24,
-                    "마스크 꼭 착용하세요",
-                    LocalDateTime.now(),
-                    LocalDateTime.now()
-            ));
-            /*return eventRepository.findEvents(
-                    placeId,
-                    eventName,
-                    eventStatus,
-                    eventStartDateTime,
-                    eventEndDateTime
-            );*/
+            return eventRepository.findEvents(placeId, eventName, eventStatus,
+                    eventStartDateTime, eventEndDateTime);
         }
         catch (Exception e) {
             throw new GeneralException(ErrorCode.DATA_ACCESS_ERROR, e);
