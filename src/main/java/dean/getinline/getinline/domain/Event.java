@@ -12,8 +12,8 @@ public class Event {
     private Long placeId;
     private String eventName;
     private EventStatus eventStatus;
-    private LocalDateTime eventStartDatetime;
-    private LocalDateTime eventEndDatetime;
+    private LocalDateTime eventStartDateTime;
+    private LocalDateTime eventEndDateTime;
     private Integer currentNumberOfPeople;
     private Integer capacity;
     private String memo;

@@ -44,10 +44,10 @@ class APIEventControllerTest {
                 .andExpect(jsonPath("$.data[0].placeId").value(1L))
                 .andExpect(jsonPath("$.data[0].eventName").value("오후 운동"))
                 .andExpect(jsonPath("$.data[0].eventStatus").value(EventStatus.OPENED.name()))
-                .andExpect(jsonPath("$.data[0].eventStartDatetime").value(LocalDateTime
+                .andExpect(jsonPath("$.data[0].eventStartDateTime").value(LocalDateTime
                         .of(2021, 1, 1, 13, 0, 0)
                         .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)))
-                .andExpect(jsonPath("$.data[0].eventEndDatetime").value(LocalDateTime
+                .andExpect(jsonPath("$.data[0].eventEndDateTime").value(LocalDateTime
                         .of(2021, 1, 1, 16, 0, 0)
                         .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)))
                 .andExpect(jsonPath("$.data[0].currentNumberOfPeople").value(0))
@@ -100,10 +100,10 @@ class APIEventControllerTest {
                 .andExpect(jsonPath("$.data.placeId").value(1L))
                 .andExpect(jsonPath("$.data.eventName").value("오후 운동"))
                 .andExpect(jsonPath("$.data.eventStatus").value(EventStatus.OPENED.name()))
-                .andExpect(jsonPath("$.data.eventStartDatetime").value(LocalDateTime
+                .andExpect(jsonPath("$.data.eventStartDateTime").value(LocalDateTime
                         .of(2021, 1, 1, 13, 0, 0)
                         .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)))
-                .andExpect(jsonPath("$.data.eventEndDatetime").value(LocalDateTime
+                .andExpect(jsonPath("$.data.eventEndDateTime").value(LocalDateTime
                         .of(2021, 1, 1, 16, 0, 0)
                         .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)))
                 .andExpect(jsonPath("$.data.currentNumberOfPeople").value(0))

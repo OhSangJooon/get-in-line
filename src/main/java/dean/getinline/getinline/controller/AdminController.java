@@ -56,15 +56,15 @@ public class AdminController {
             Long placeId,
             String eventName,
             EventStatus eventStatus,
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime eventStartDatetime,
-            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime eventEndDatetime
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime eventStartDateTime,
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime eventEndDateTime
     ) {
         Map<String, Object> map = new HashMap<>();
         map.put("placeName", "place-" + placeId);
         map.put("eventName", eventName);
         map.put("eventStatus", eventStatus);
-        map.put("eventStartDatetime", eventStartDatetime);
-        map.put("eventEndDatetime", eventEndDatetime);
+        map.put("eventStartDateTime", eventStartDateTime);
+        map.put("eventEndDateTime", eventEndDateTime);
 
         return new ModelAndView("admin/events", map);
     }

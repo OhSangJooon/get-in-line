@@ -8,8 +8,8 @@ public record EventResponse(
         Long placeId,
         String eventName,
         EventStatus eventStatus,
-        LocalDateTime eventStartDatetime,
-        LocalDateTime eventEndDatetime,
+        LocalDateTime eventStartDateTime,
+        LocalDateTime eventEndDateTime,
         Integer currentNumberOfPeople,
         Integer capacity,
         String memo
@@ -18,8 +18,8 @@ public record EventResponse(
             Long placeId,
             String eventName,
             EventStatus eventStatus,
-            LocalDateTime eventStartDatetime,
-            LocalDateTime eventEndDatetime,
+            LocalDateTime eventStartDateTime,
+            LocalDateTime eventEndDateTime,
             Integer currentNumberOfPeople,
             Integer capacity,
             String memo
@@ -28,8 +28,8 @@ public record EventResponse(
                 placeId,
                 eventName,
                 eventStatus,
-                eventStartDatetime,
-                eventEndDatetime,
+                eventStartDateTime,
+                eventEndDateTime,
                 currentNumberOfPeople,
                 capacity,
                 memo
