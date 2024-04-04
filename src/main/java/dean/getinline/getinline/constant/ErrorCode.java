@@ -11,13 +11,15 @@ import java.util.function.Predicate;
 @RequiredArgsConstructor
 public enum ErrorCode {
 
-    OK(0, ErrorCategory.NOMAL, "Ok"),
+    OK(0, ErrorCategory.NORMAL, "Ok"),
 
     BAD_REQUEST(10000, ErrorCategory.CLIENT_SIDE, "Bad request"),
     SPRING_BAD_REQUEST(10001, ErrorCategory.CLIENT_SIDE, "Spring-detected bad request"),
+    VALIDATION_ERROR(10002, ErrorCategory.CLIENT_SIDE, "Validation error"),
 
     INTERNAL_ERROR(20000, ErrorCategory.SERVER_SIDE, "Internal error"),
     SPRING_INTERNAL_ERROR(20001, ErrorCategory.SERVER_SIDE, "Spring-detected internal error"),
+    DATA_ACCESS_ERROR(20002, ErrorCategory.SERVER_SIDE, "Data access error")
     ;
 
     private final Integer code;
@@ -48,6 +50,6 @@ public enum ErrorCode {
     }
 
     public enum ErrorCategory {
-        NOMAL, CLIENT_SIDE, SERVER_SIDE
+        NORMAL, CLIENT_SIDE, SERVER_SIDE
     }
 }
