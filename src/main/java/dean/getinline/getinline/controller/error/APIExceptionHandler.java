@@ -15,8 +15,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.util.Map;
-
 /**
  * API Exception 핸들러
  * API에 대한 ControllerAdvice 전체 컨트롤러의 동작을 감시한다.
@@ -32,7 +30,7 @@ public class APIExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({ConstraintViolationException.class, MethodArgumentTypeMismatchException.class})
     public ResponseEntity<Object> validation(ConstraintViolationException e, WebRequest request) {
-        return callSuperInternalExceptionHandler(e, ErrorCode.VALIDATION_ERROR, HttpHeaders.EMPTY, HttpStatus.BAD_REQUEST, request);
+        return handleExceptionInternal(e, ErrorCode.VALIDATION_ERROR, HttpHeaders.EMPTY, HttpStatus.BAD_REQUEST, request);
     }
 
     /**
@@ -43,7 +41,7 @@ public class APIExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = e.getErrorCode();
         HttpStatus status = errorCode.isClientSideError() ? HttpStatus.BAD_REQUEST : HttpStatus.INTERNAL_SERVER_ERROR;
 
-        return callSuperInternalExceptionHandler(e, errorCode, HttpHeaders.EMPTY, status, request);
+        return handleExceptionInternal(e, errorCode, HttpHeaders.EMPTY, status, request);
     }
 
     /**
@@ -58,7 +56,7 @@ public class APIExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = ErrorCode.INTERNAL_ERROR;
         HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
 
-        return callSuperInternalExceptionHandler(e, errorCode, HttpHeaders.EMPTY, status, request);
+        return handleExceptionInternal(e, errorCode, HttpHeaders.EMPTY, status, request);
     }
 
     /**
@@ -73,10 +71,10 @@ public class APIExceptionHandler extends ResponseEntityExceptionHandler {
                 ErrorCode.SPRING_BAD_REQUEST :
                 ErrorCode.SPRING_INTERNAL_ERROR;
 
-        return callSuperInternalExceptionHandler(ex, errorCode, headers, statusCode, request);
+        return handleExceptionInternal(ex, errorCode, headers, statusCode, request);
     }
 
-    private ResponseEntity<Object> callSuperInternalExceptionHandler(Exception e, ErrorCode errorCode, HttpHeaders headers, HttpStatusCode statusCode, WebRequest request) {
+    private ResponseEntity<Object> handleExceptionInternal(Exception e, ErrorCode errorCode, HttpHeaders headers, HttpStatusCode statusCode, WebRequest request) {
         return super.handleExceptionInternal(
                 e,
                 APIErrorResponse.of(false, errorCode.getCode(), errorCode.getMessage(e)),
