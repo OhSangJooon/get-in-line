@@ -1,17 +1,21 @@
 package dean.getinline.getinline.dto;
 
 import dean.getinline.getinline.constant.EventStatus;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import java.time.LocalDateTime;
 
 public record EventRequest(
-        Long placeId,
-        String eventName,
-        EventStatus eventStatus,
-        LocalDateTime eventStartDateTime,
-        LocalDateTime eventEndDateTime,
-        Integer currentNumberOfPeople,
-        Integer capacity,
+        @NotNull @Positive Long placeId,
+        @NotBlank String eventName,
+        @NotNull EventStatus eventStatus,
+        @NotNull LocalDateTime eventStartDateTime,
+        @NotNull LocalDateTime eventEndDateTime,
+        @NotNull @PositiveOrZero Integer currentNumberOfPeople,
+        @NotNull @Positive Integer capacity,
         String memo
 ) {
     public static EventRequest of(
