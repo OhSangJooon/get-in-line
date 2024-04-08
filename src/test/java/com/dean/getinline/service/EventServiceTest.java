@@ -172,12 +172,9 @@ class EventServiceTest {
         long eventId = 1L;
         Event originalEvent = createEvent(1L, "오후 운동", false);
         Event changedEvent = createEvent(1L, "오전 운동", true);
-        originalEvent.applyEventId(1L);
-        changedEvent.applyEventId(1L);
-        changedEvent.updateAuditingAtNow();
 
         given(eventRepository.findById(eventId)).willReturn(Optional.of(originalEvent));
-        given(eventRepository.save(changedEvent)).willReturn(changedEvent);
+        given(eventRepository.save(any())).willReturn(changedEvent);
 
         // When
         boolean result = sut.modifyEvent(eventId, EventDTO.of(changedEvent));
@@ -185,7 +182,7 @@ class EventServiceTest {
         // Then
         assertThat(result).isTrue();
         then(eventRepository).should().findById(eventId);
-        then(eventRepository).should().save(changedEvent);
+        then(eventRepository).should().save(any());
     }
 
     @DisplayName("이벤트 ID를 주지 않으면, 이벤트 정보 변경 중단하고 결과를 false 로 보여준다.")

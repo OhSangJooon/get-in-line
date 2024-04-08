@@ -118,14 +118,4 @@ public class Event {
                 memo
         );
     }
-
-    public void applyEventId(Long id) {
-        this.id = id;
-    }
-
-    public void updateAuditingAtNow() {
-        this.createdAt = LocalDateTime.now();
-        this.modifiedAt = LocalDateTime.now();
-    }
-
 }
