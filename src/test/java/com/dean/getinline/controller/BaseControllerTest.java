@@ -15,6 +15,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * 파라미터로 테스트하고자 하는 컨트롤러 클래스를 작성한다.
  * */
+@DisplayName("View 컨트롤러 - 기본 페이지")
 @WebMvcTest(BaseController.class)
 class BaseControllerTest {
 

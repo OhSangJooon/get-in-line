@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
+@DisplayName("에러 처리 - 에러 코드")
 class ErrorCodeTest {
     @ParameterizedTest(name = "[{index}] {0} ===> {1}")
     // @MethodSource에는 메서드 이름을 지정할 수 있다. @MethodSource("givenExceptionWithMessage_whenGettingMessage_thenReturnsMessage")

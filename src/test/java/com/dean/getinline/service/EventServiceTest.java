@@ -27,6 +27,7 @@ import static org.mockito.BDDMockito.then;
 * 목킹을 사용할 것이다 즉, Mockito를 사용해 Mock을 주입할 수 있다.
 * 목킹을 사용하면 BeforeEach 처리를 할 필요가 없다.
 * */
+@DisplayName("비즈니스 로직 - 이벤트")
 @ExtendWith(MockitoExtension.class)
 class EventServiceTest {
 

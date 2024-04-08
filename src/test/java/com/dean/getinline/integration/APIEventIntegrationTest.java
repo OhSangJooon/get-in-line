@@ -2,6 +2,7 @@ package com.dean.getinline.integration;
 
 import com.dean.getinline.constant.ErrorCode;
 import com.dean.getinline.constant.EventStatus;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * 통합테스트 IntegrationTest를 하기위한 간단한 방법
  * */
+@DisplayName("통합테스트 - 이벤트")
 @AutoConfigureMockMvc
 @SpringBootTest
 public class APIEventIntegrationTest {
