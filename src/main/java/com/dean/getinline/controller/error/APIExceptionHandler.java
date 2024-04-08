@@ -4,6 +4,7 @@ import com.dean.getinline.constant.ErrorCode;
 import com.dean.getinline.dto.APIErrorResponse;
 import com.dean.getinline.exception.GeneralException;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -25,7 +26,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
  * 추가로 스프링 MVC의 예외도 처리하기 위해
  * ResponseEntityExceptionHandler 를 구현해서 처리했다.
 * */
-@RestControllerAdvice(annotations = RestController.class)
+@RestControllerAdvice(annotations = {RestController.class, RepositoryRestController.class})
 public class APIExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({ConstraintViolationException.class, MethodArgumentTypeMismatchException.class})

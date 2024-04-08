@@ -18,9 +18,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/api")
+//@RequestMapping("/api")
 @Validated // 컨트롤러의 validate를 체크하기 위해서는 이 어노테이션을 사용해야 한다.
-@RestController
+//@RestController
 public class APIEventController {
 
     private final EventService eventService;

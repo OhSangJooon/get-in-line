@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 @Table(indexes = {
         @Index(columnList = "placeId"),
         @Index(columnList = "eventName"),
-        @Index(columnList = "eventStartDatetime"),
-        @Index(columnList = "eventEndDatetime"),
+        @Index(columnList = "eventStartDateTime"),
+        @Index(columnList = "eventEndDateTime"),
         @Index(columnList = "createdAt"),
         @Index(columnList = "modifiedAt")
 })
@@ -46,13 +46,13 @@ public class Event {
     private EventStatus eventStatus;
 
     @Setter
-    @Column(nullable = false, columnDefinition = "datetime")
+    @Column(nullable = false, columnDefinition = "dateTime")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime eventStartDatetime;
+    private LocalDateTime eventStartDateTime;
 
-    @Setter @Column(nullable = false, columnDefinition = "datetime")
+    @Setter @Column(nullable = false, columnDefinition = "dateTime")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime eventEndDatetime;
+    private LocalDateTime eventEndDateTime;
 
     @Setter @Column(nullable = false, columnDefinition = "integer default 0")
     private Integer currentNumberOfPeople;
@@ -65,12 +65,12 @@ public class Event {
 
 
     @Column(nullable = false, insertable = false, updatable = false,
-            columnDefinition = "datetime default CURRENT_TIMESTAMP")
+            columnDefinition = "dateTime default CURRENT_TIMESTAMP")
     @CreatedDate
     private LocalDateTime createdAt;
 
     @Column(nullable = false, insertable = false, updatable = false,
-            columnDefinition = "datetime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP")
+            columnDefinition = "dateTime default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP")
     @LastModifiedDate
     private LocalDateTime modifiedAt;
 
@@ -81,8 +81,8 @@ public class Event {
             Long placeId,
             String eventName,
             EventStatus eventStatus,
-            LocalDateTime eventStartDatetime,
-            LocalDateTime eventEndDatetime,
+            LocalDateTime eventStartDateTime,
+            LocalDateTime eventEndDateTime,
             Integer currentNumberOfPeople,
             Integer capacity,
             String memo
@@ -90,8 +90,8 @@ public class Event {
         this.placeId = placeId;
         this.eventName = eventName;
         this.eventStatus = eventStatus;
-        this.eventStartDatetime = eventStartDatetime;
-        this.eventEndDatetime = eventEndDatetime;
+        this.eventStartDateTime = eventStartDateTime;
+        this.eventEndDateTime = eventEndDateTime;
         this.currentNumberOfPeople = currentNumberOfPeople;
         this.capacity = capacity;
         this.memo = memo;
@@ -101,8 +101,8 @@ public class Event {
             Long placeId,
             String eventName,
             EventStatus eventStatus,
-            LocalDateTime eventStartDatetime,
-            LocalDateTime eventEndDatetime,
+            LocalDateTime eventStartDateTime,
+            LocalDateTime eventEndDateTime,
             Integer currentNumberOfPeople,
             Integer capacity,
             String memo
@@ -111,8 +111,8 @@ public class Event {
                 placeId,
                 eventName,
                 eventStatus,
-                eventStartDatetime,
-                eventEndDatetime,
+                eventStartDateTime,
+                eventEndDateTime,
                 currentNumberOfPeople,
                 capacity,
                 memo
