@@ -49,7 +49,22 @@ public class EventController {
     }
 
     @GetMapping("/{eventId}")
-    public String eventDetail(@PathVariable Long eventId) {
-        return "event/detail";
+    public ModelAndView eventDetail(@PathVariable Long eventId) {
+        Map<String, Object> map = new HashMap<>();
+
+        // TODO: 임시 데이터. 추후 삭제 예정
+        map.put("event", EventResponse.of(
+                eventId,
+                1L,
+                "오후 운동",
+                EventStatus.OPENED,
+                LocalDateTime.of(2021, 1, 1, 13, 0, 0),
+                LocalDateTime.of(2021, 1, 1, 16, 0, 0),
+                0,
+                24,
+                "마스크 꼭 착용하세요"
+        ));
+
+        return new ModelAndView("event/detail", map);
     }
 }
