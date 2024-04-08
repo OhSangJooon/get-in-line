@@ -1,7 +1,9 @@
 package dean.getinline.getinline.service;
 
+import dean.getinline.getinline.constant.ErrorCode;
 import dean.getinline.getinline.constant.EventStatus;
 import dean.getinline.getinline.dto.EventDTO;
+import dean.getinline.getinline.exception.GeneralException;
 import dean.getinline.getinline.repository.EventRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -17,6 +19,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.verify;
@@ -89,6 +93,24 @@ class EventServiceTest {
 //        verify(eventRepository).findEvents(placeId, eventName, eventStatus, eventStartDateTime, eventEndDateTime);
         then(eventRepository).should().findEvents(placeId, eventName, eventStatus, eventStartDateTime, eventEndDateTime);
     }
+
+    @DisplayName("이벤트를 검색하는데 에러가 발생한 경우, 줄서기 프로젝트 기본 에러로 전환하여 예외 던진다.")
+    @Test
+    void givenDataRelatedException_whenSearchingEvents_thenThrowsGeneralException() {
+        // Given
+        RuntimeException e = new RuntimeException("This is test.");
+        given(eventRepository.findEvents(any(), any(), any(), any(), any())).willThrow(e);
+
+        // When
+        Throwable thrown = catchThrowable(() -> sut.getEvents(null, null, null, null, null));
+
+        // Then
+        assertThat(thrown)
+                .isInstanceOf(GeneralException.class)
+                .hasMessageContaining(ErrorCode.DATA_ACCESS_ERROR.getMessage());
+        then(eventRepository).should().findEvents(any(), any(), any(), any(), any());
+    }
+
     @DisplayName("이벤트 ID로 존재하는 이벤트를 조회하면, 해당 이벤트 정보를 출력하여 보여준다.")
     @Test
     void givenEventId_whenSearchingExistingEvent_thenReturnsEvent() {
@@ -122,6 +144,23 @@ class EventServiceTest {
         then(eventRepository).should().findEvent(eventId);
     }
 
+    @DisplayName("이벤트 ID로 이벤트를 조회하는데 데이터 관련 에러가 발생한 경우, 줄서기 프로젝트 기본 에러로 전환하여 예외 던진다.")
+    @Test
+    void givenDataRelatedException_whenSearchingEvent_thenThrowsGeneralException() {
+        // Given
+        RuntimeException e = new RuntimeException("This is test.");
+        given(eventRepository.findEvent(any())).willThrow(e);
+
+        // When
+        Throwable thrown = catchThrowable(() -> sut.getEvent(null));
+
+        // Then
+        assertThat(thrown)
+                .isInstanceOf(GeneralException.class)
+                .hasMessageContaining(ErrorCode.DATA_ACCESS_ERROR.getMessage());
+        then(eventRepository).should().findEvent(any());
+    }
+
     @DisplayName("이벤트 정보를 주면, 이벤트를 생성하고 결과를 true 로 보여준다.")
     @Test
     void givenEvent_whenCreating_thenCreatesEventAndReturnsTrue() {
@@ -151,6 +190,23 @@ class EventServiceTest {
         assertThat(result).isFalse();
 //        verify(eventRepository).insertEvent(null);
         then(eventRepository).should().insertEvent(null);
+    }
+
+    @DisplayName("이벤트 생성 중 데이터 예외가 발생하면, 줄서기 프로젝트 기본 에러로 전환하여 예외 던진다")
+    @Test
+    void givenDataRelatedException_whenCreating_thenThrowsGeneralException() {
+        // Given
+        RuntimeException e = new RuntimeException("This is test.");
+        given(eventRepository.insertEvent(any())).willThrow(e);
+
+        // When
+        Throwable thrown = catchThrowable(() -> sut.createEvent(null));
+
+        // Then
+        assertThat(thrown)
+                .isInstanceOf(GeneralException.class)
+                .hasMessageContaining(ErrorCode.DATA_ACCESS_ERROR.getMessage());
+        then(eventRepository).should().insertEvent(any());
     }
 
     @DisplayName("이벤트 ID와 정보를 주면, 이벤트 정보를 변경하고 결과를 true 로 보여준다.")
@@ -202,6 +258,23 @@ class EventServiceTest {
         then(eventRepository).should().updateEvent(eventId, null);
     }
 
+    @DisplayName("이벤트 변경 중 데이터 오류가 발생하면, 줄서기 프로젝트 기본 에러로 전환하여 예외 던진다.")
+    @Test
+    void givenDataRelatedException_whenModifying_thenThrowsGeneralException() {
+        // Given
+        RuntimeException e = new RuntimeException("This is test.");
+        given(eventRepository.updateEvent(any(), any())).willThrow(e);
+
+        // When
+        Throwable thrown = catchThrowable(() -> sut.modifyEvent(null, null));
+
+        // Then
+        assertThat(thrown)
+                .isInstanceOf(GeneralException.class)
+                .hasMessageContaining(ErrorCode.DATA_ACCESS_ERROR.getMessage());
+        then(eventRepository).should().updateEvent(any(), any());
+    }
+
     @DisplayName("이벤트 ID를 주면, 이벤트 정보를 삭제하고 결과를 true 로 보여준다.")
     @Test
     void givenEventId_whenDeleting_thenDeletesEventAndReturnsTrue() {
@@ -233,6 +306,22 @@ class EventServiceTest {
         then(eventRepository).should().deleteEvent(null);
     }
 
+    @DisplayName("이벤트 삭제 중 데이터 오류가 발생하면, 줄서기 프로젝트 기본 에러로 전환하여 예외 던진다.")
+    @Test
+    void givenDataRelatedException_whenDeleting_thenThrowsGeneralException() {
+        // Given
+        RuntimeException e = new RuntimeException("This is test.");
+        given(eventRepository.deleteEvent(any())).willThrow(e);
+
+        // When
+        Throwable thrown = catchThrowable(() -> sut.removeEvent(null));
+
+        // Then
+        assertThat(thrown)
+                .isInstanceOf(GeneralException.class)
+                .hasMessageContaining(ErrorCode.DATA_ACCESS_ERROR.getMessage());
+        then(eventRepository).should().deleteEvent(any());
+    }
 
     private EventDTO createEventDTO(long placeId, String eventName, boolean isMorning) {
         String hourStart = isMorning ? "09" : "13";
