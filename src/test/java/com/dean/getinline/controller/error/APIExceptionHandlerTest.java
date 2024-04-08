@@ -17,7 +17,7 @@ import org.springframework.web.servlet.handler.DispatcherServletWebRequest;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
+@DisplayName("핸들러 - API 에러 처리")
 class APIExceptionHandlerTest {
     private APIExceptionHandler sut;
     private WebRequest webRequest;
