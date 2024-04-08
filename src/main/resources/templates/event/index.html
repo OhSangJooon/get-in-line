@@ -1,48 +1,37 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
 </head>
 <body>
 <p>
-  <span id="eventsTitle" data-th-text="'이벤트 리스트 조회'">This is events page.</span>
+  <span id="eventsTitle">This is events page.</span>
 </p>
 <table id="eventsTable">
   <thead>
-  <tr>
-    <th>장소 ID</th>
-    <th>이벤트명</th>
-    <th>이벤트 상태</th>
-    <th>시작 일시</th>
-    <th>종료 일시</th>
-    <th>현재 인원</th>
-    <th>최대 수용 인원</th>
-    <th>상세</th>
-  </tr>
+    <tr>
+      <th>장소 ID</th>
+      <th>이벤트명</th>
+      <th>이벤트 상태</th>
+      <th>시작 일시</th>
+      <th>종료 일시</th>
+      <th>현재 인원</th>
+      <th>최대 수용 인원</th>
+      <th>상세</th>
+    </tr>
   </thead>
-  <!-- data-th-remove를 사용해 타임리프가 적용되지 않은 프로토타입 코드를 제거한다 -->
-  <tbody data-th-remove="all-but-first">
-  <tr data-th-each="event : ${events}">
-    <td class="placeId" data-th-text="${event.placeId()}">1</td>
-    <td class="eventName" data-th-text="${event.eventName()}">테스트 이벤트</td>
-    <td class="eventStatus" data-th-text="${event.eventStatus()}">OPENED</td>
-    <td class="eventStartDateTime" data-th-text="${event.eventStartDateTime()}">2021-01-01 09:00:00</td>
-    <td class="eventEndDateTime" data-th-text="${event.eventEndDateTime()}">2021-01-01 10:00:00</td>
-    <td class="currentNumberOfPeople" data-th-text="${event.currentNumberOfPeople()}">0</td>
-    <td class="capacity">10</td>
-    <td><a>상세</a></td>
-  </tr>
-  <tr data-th-each="event : ${events}">
-    <td class="placeId" >1</td>
-    <td class="eventName" >테스트 이벤트</td>
-    <td class="eventStatus" >OPENED</td>
-    <td class="eventStartDateTime" >2021-01-01 09:00:00</td>
-    <td class="eventEndDateTime" >2021-01-01 10:00:00</td>
-    <td class="currentNumberOfPeople" >0</td>
-    <td class="capacity">10</td>
-    <td><a>상세</a></td>
-  </tr>
+  <tbody>
+    <tr>
+      <td class="placeId">1</td>
+      <td class="eventName">테스트 이벤트</td>
+      <td class="eventStatus">OPENED</td>
+      <td class="eventStartDateTime">2021-01-01 09:00:00</td>
+      <td class="eventEndDateTime">2021-01-01 10:00:00</td>
+      <td class="currentNumberOfPeople">0</td>
+      <td class="capacity">10</td>
+      <td><a>상세</a></td>
+    </tr>
   </tbody>
 </table>
 </body>
