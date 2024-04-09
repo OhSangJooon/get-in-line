@@ -28,6 +28,7 @@ import static org.mockito.BDDMockito.then;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+@Deprecated
 @DisplayName("API 컨트롤러 - 이벤트")
 @WebMvcTest(ApiEventController.class)
 class ApiEventControllerTest {
