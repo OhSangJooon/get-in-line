@@ -29,8 +29,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("API 컨트롤러 - 이벤트")
-@WebMvcTest(APIEventController.class)
-class APIEventControllerTest {
+@WebMvcTest(ApiEventController.class)
+class ApiEventControllerTest {
 
     private final MockMvc mvc;
     private final ObjectMapper mapper;
@@ -39,7 +39,7 @@ class APIEventControllerTest {
     @MockBean
     private EventService eventService;
 
-    public APIEventControllerTest(
+    public ApiEventControllerTest(
             @Autowired MockMvc mvc,
             @Autowired ObjectMapper mapper
     ) {

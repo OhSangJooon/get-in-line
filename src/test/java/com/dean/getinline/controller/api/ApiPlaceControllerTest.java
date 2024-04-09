@@ -15,12 +15,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @DisplayName("API 컨트롤러 - 장소")
-@WebMvcTest(APIPlaceController.class)
-class APIPlaceControllerTest {
+@WebMvcTest(ApiPlaceController.class)
+class ApiPlaceControllerTest {
     private final MockMvc mvc;
     private final ObjectMapper mapper;
 
-    public APIPlaceControllerTest(
+    public ApiPlaceControllerTest(
             @Autowired MockMvc mvc,
             @Autowired ObjectMapper mapper
     ) {
