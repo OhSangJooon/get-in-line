@@ -5,7 +5,7 @@ import com.querydsl.core.types.Predicate;
 import com.dean.getinline.constant.ErrorCode;
 import com.dean.getinline.constant.EventStatus;
 import com.dean.getinline.domain.Event;
-import com.dean.getinline.dto.EventDTO;
+import com.dean.getinline.dto.EventDto;
 import com.dean.getinline.exception.GeneralException;
 import com.dean.getinline.repository.EventRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -47,7 +47,7 @@ class EventServiceTest {
                 ));
 
         // When
-        List<EventDTO> list = sut.getEvents(new BooleanBuilder());
+        List<EventDto> list = sut.getEvents(new BooleanBuilder());
 
         // Then
         assertThat(list).hasSize(2);
@@ -80,10 +80,10 @@ class EventServiceTest {
         given(eventRepository.findById(eventId)).willReturn(Optional.of(event));
 
         // When
-        Optional<EventDTO> result = sut.getEvent(eventId);
+        Optional<EventDto> result = sut.getEvent(eventId);
 
         // Then
-        assertThat(result).hasValue(EventDTO.of(event));
+        assertThat(result).hasValue(EventDto.of(event));
         then(eventRepository).should().findById(eventId);
     }
 
@@ -95,7 +95,7 @@ class EventServiceTest {
         given(eventRepository.findById(eventId)).willReturn(Optional.empty());
 
         // When
-        Optional<EventDTO> result = sut.getEvent(eventId);
+        Optional<EventDto> result = sut.getEvent(eventId);
 
         // Then
         assertThat(result).isEmpty();
@@ -127,7 +127,7 @@ class EventServiceTest {
         given(eventRepository.save(event)).willReturn(event);
 
         // When
-        boolean result = sut.createEvent(EventDTO.of(event));
+        boolean result = sut.createEvent(EventDto.of(event));
 
         // Then
         assertThat(result).isTrue();
@@ -156,7 +156,7 @@ class EventServiceTest {
         given(eventRepository.save(any())).willThrow(e);
 
         // When
-        Throwable thrown = catchThrowable(() -> sut.createEvent(EventDTO.of(event)));
+        Throwable thrown = catchThrowable(() -> sut.createEvent(EventDto.of(event)));
 
         // Then
         assertThat(thrown)
@@ -177,7 +177,7 @@ class EventServiceTest {
         given(eventRepository.save(any())).willReturn(changedEvent);
 
         // When
-        boolean result = sut.modifyEvent(eventId, EventDTO.of(changedEvent));
+        boolean result = sut.modifyEvent(eventId, EventDto.of(changedEvent));
 
         // Then
         assertThat(result).isTrue();
@@ -192,7 +192,7 @@ class EventServiceTest {
         Event event = createEvent(1L, "오후 운동", false);
 
         // When
-        boolean result = sut.modifyEvent(null, EventDTO.of(event));
+        boolean result = sut.modifyEvent(null, EventDto.of(event));
 
         // Then
         assertThat(result).isFalse();
@@ -225,7 +225,7 @@ class EventServiceTest {
         given(eventRepository.save(any())).willThrow(e);
 
         // When
-        Throwable thrown = catchThrowable(() -> sut.modifyEvent(eventId, EventDTO.of(wrongEvent)));
+        Throwable thrown = catchThrowable(() -> sut.modifyEvent(eventId, EventDto.of(wrongEvent)));
 
         // Then
         assertThat(thrown)

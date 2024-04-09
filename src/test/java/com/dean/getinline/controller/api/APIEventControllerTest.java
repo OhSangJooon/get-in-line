@@ -3,7 +3,7 @@ package com.dean.getinline.controller.api;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.dean.getinline.constant.ErrorCode;
 import com.dean.getinline.constant.EventStatus;
-import com.dean.getinline.dto.EventDTO;
+import com.dean.getinline.dto.EventDto;
 import com.dean.getinline.dto.EventRequest;
 import com.dean.getinline.dto.EventResponse;
 import com.dean.getinline.service.EventService;
@@ -320,8 +320,8 @@ class APIEventControllerTest {
         then(eventService).shouldHaveNoInteractions();
     }
 
-    private EventDTO createEventDTO() {
-        return EventDTO.of(
+    private EventDto createEventDTO() {
+        return EventDto.of(
                 1L,
                 1L,
                 "오후 운동",

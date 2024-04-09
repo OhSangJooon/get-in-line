@@ -18,9 +18,9 @@ public interface EventRepository extends
     default void customize(QuerydslBindings bindings, QEvent root) {
         bindings.excludeUnlistedProperties(true);
         bindings.including(root.placeId, root.eventName, root.eventStatus, root.eventStartDateTime, root.eventEndDateTime);
-        bindings.bind(root.eventName).first(StringExpression::likeIgnoreCase);
-        bindings.bind(root.eventStartDateTime).first(ComparableExpression::goe);
-        bindings.bind(root.eventEndDateTime).first(ComparableExpression::loe);
+        bindings.bind(root.eventName).first(StringExpression::containsIgnoreCase);
+        bindings.bind(root.eventStartDateTime).first(ComparableExpression::goe);    // goe : 이상
+        bindings.bind(root.eventEndDateTime).first(ComparableExpression::loe);      // loe : 이하
     }
 
 }
