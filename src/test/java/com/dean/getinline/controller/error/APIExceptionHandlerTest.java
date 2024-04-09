@@ -30,7 +30,7 @@ class APIExceptionHandlerTest {
 
     @DisplayName("검증 오류 - 응답 데이터 정의")
     @Test
-    void givenValidationException_whenCallingValidation_thenReturnsResponseEntity() {
+    void givenValidationException_whenHandlingApiException_thenReturnsResponseEntity() {
         // Given
         ConstraintViolationException e = new ConstraintViolationException(Set.of());
 
@@ -46,7 +46,7 @@ class APIExceptionHandlerTest {
 
     @DisplayName("프로젝트 일반 오류 - 응답 데이터 정의")
     @Test
-    void givenGeneralException_whenCallingValidation_thenReturnsResponseEntity() {
+    void givenGeneralException_whenHandlingApiException_thenReturnsResponseEntity() {
         // Given
         ErrorCode errorCode = ErrorCode.INTERNAL_ERROR;
         GeneralException e = new GeneralException(errorCode);
@@ -63,7 +63,7 @@ class APIExceptionHandlerTest {
 
     @DisplayName("기타(전체) 오류 - 응답 데이터 정의")
     @Test
-    void givenOtherException_whenCallingValidation_thenReturnsResponseEntity() {
+    void givenOtherException_whenHandlingApiException_thenReturnsResponseEntity() {
         // Given
         Exception e = new Exception();
 
