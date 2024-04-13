@@ -6,6 +6,7 @@ import com.dean.getinline.repository.EventRepository;
 import com.dean.getinline.constant.EventStatus;
 import com.dean.getinline.exception.GeneralException;
 import com.querydsl.core.types.Predicate;
+import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ import java.util.stream.StreamSupport;
 public class EventService {
 
     private final EventRepository eventRepository;
+//    private final EntityManager entityManager; // 하이버네이트를 직접 사용하여 트랜잭션을 수동 켜고 닫기 하는 방법 그러나 결합도가 높아진다.
 
     public List<EventDto> getEvents(Predicate predicate) {
         try {
@@ -58,15 +60,18 @@ public class EventService {
     }
 
     public boolean createEvent(EventDto eventDTO) {
+//        entityManager.getTransaction().begin();
         try {
             if (eventDTO == null) {
                 return false;
             }
 
             eventRepository.save(eventDTO.toEntity());
+//            entityManager.getTransaction().commit();
             return true;
         }
         catch (Exception e) {
+//            entityManager.getTransaction().rollback();
             throw new GeneralException(ErrorCode.DATA_ACCESS_ERROR, e);
         }
     }
